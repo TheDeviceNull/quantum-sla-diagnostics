@@ -1,218 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>ServiceNow Internal Diagnostics – Quantum Console v3.5</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <title>ServiceNow Internal Diagnostics – Quantum Console</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- ============================
-       POLARIS THEME (CUSTOM)
-       Ispirato ai design moderni di ServiceNow
-       ============================ -->
   <style>
     :root {
-      --bg: #f7f9fa;
-      --card-bg: #ffffff;
-      --border: #d7dce0;
-      --text-primary: #1c2a37;
-      --text-secondary: #3b4a5a;
-      --accent: #0078d4;
-      --accent-light: #cfe7ff;
-      --btn-text: #ffffff;
-      --radius: 10px;
-      --shadow: 0 2px 8px rgba(0,0,0,0.08);
+      --sn-header-bg: #1e1f21;
+      --sn-header-text: #ffffff;
+      --sn-border: #d0d4d9;
+      --sn-text: #1c1e21;
+      --sn-subtext: #4a4f55;
+      --sn-link: #0b57d0;
+      --sn-bg: #ffffff;
+      --radius: 4px;
+      --font: "Segoe UI", Arial, sans-serif;
     }
 
     body {
-      background: var(--bg);
-      color: var(--text-primary);
+      background: var(--sn-bg);
+      color: var(--sn-text);
       margin: 0;
-      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: var(--font);
     }
 
-    .page {
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 35px 24px 60px;
-    }
-
-    /* HEADER */
-    #header {
-      margin-bottom: 26px;
-      padding: 10px 0 18px;
-      border-bottom: 2px solid var(--border);
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 30px;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
-    .subtitle {
-      color: var(--text-secondary);
-      font-size: 14px;
+    /* HEADER STILE SERVICENOW */
+    #sn-header {
+      background: var(--sn-header-bg);
+      color: var(--sn-header-text);
+      padding: 14px 22px;
+      font-size: 18px;
       font-weight: 500;
-      margin-top: 4px;
     }
 
-    /* BADGE INTERNAL */
+    /* SUBHEADER */
+    #subheader {
+      background: #f3f4f6;
+      padding: 10px 22px;
+      border-bottom: 1px solid var(--sn-border);
+      color: var(--sn-subtext);
+      font-size: 14px;
+    }
+
+    /* PAGE AREA */
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 25px 22px 70px;
+    }
+
     .badge {
       display: inline-block;
       background: #b40000;
       color: #fff;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 4px;
-      margin-top: 8px;
-    }
-
-    /* Moduli / Cards */
-    .module {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
+      padding: 3px 6px;
       border-radius: var(--radius);
-      padding: 20px 22px;
-      margin-bottom: 22px;
-      box-shadow: var(--shadow);
+      margin-left: 8px;
     }
 
-    .module h3 {
-      margin-top: 0;
+    h2 {
       font-size: 20px;
-      color: var(--text-primary);
       font-weight: 600;
+      margin: 0 0 6px 0;
     }
 
     .desc {
-      margin: 0 0 14px;
-      color: var(--text-secondary);
-      font-size: 14px;
-      line-height: 1.55;
+      font-size: 13px;
+      color: var(--sn-subtext);
+      margin-bottom: 14px;
+    }
+
+    .module {
+      border-left: 3px solid var(--sn-link);
+      padding: 10px 14px 14px;
+      margin-bottom: 26px;
+      background: #fafafa;
+      border-radius: var(--radius);
+      border: 1px solid #e7eaed;
     }
 
     .btn {
       display: inline-block;
-      padding: 10px 16px;
-      background: var(--accent);
-      color: var(--btn-text);
-      font-weight: 600;
-      border-radius: 6px;
+      background: var(--sn-link);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: var(--radius);
+      font-size: 13px;
       cursor: pointer;
-      user-select: none;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-      transition: background 0.1s ease;
+      text-decoration: none;
     }
-    .btn:hover {
-      background: #005fa3;
-    }
+
+    .btn:hover { background: #094bbc; }
 
     .logs {
-      background: var(--accent-light);
-      color: var(--text-primary);
-      margin-top: 14px;
-      padding: 10px 14px;
-      border-radius: 6px;
-      min-height: 52px;
       font-family: Consolas, monospace;
-      font-size: 13px;
+      background: #eef4ff;
+      padding: 8px 12px;
+      border-radius: var(--radius);
+      border: 1px solid #d9e4ff;
+      margin-top: 10px;
+      font-size: 12px;
+      min-height: 40px;
     }
-    .log-line { margin: 3px 0; }
 
-    /* EASTER EGG POPUP */
+    .log-line {
+      margin: 2px 0;
+    }
+
+    /* EASTER EGG */
     #easterEggPanel {
       position: fixed;
       top: 50%;
       left: 50%;
-      width: 420px;
+      width: 380px;
       transform: translate(-50%, -50%);
       background: #0d1117;
       color: #8fffa8;
-      padding: 20px;
-      border-radius: 8px;
+      padding: 18px;
+      border-radius: 6px;
       border: 2px solid #2ea043;
-      box-shadow: 0 0 18px rgba(0,255,128,0.4);
       display: none;
       z-index: 99999;
       font-family: Consolas, monospace;
-    }
-    #easterEggTitle {
-      font-size: 18px;
-      margin-bottom: 12px;
-      color: #9bffcc;
-      font-weight: 600;
+      font-size: 12px;
     }
     #easterEggClose {
-      margin-top: 14px;
+      margin-top: 12px;
       cursor: pointer;
-      color: #fff;
       background: #2ea043;
-      padding: 6px 12px;
-      border-radius: 5px;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: var(--radius);
       display: inline-block;
-      font-size: 12px;
     }
   </style>
 </head>
 
 <body>
-  <main class="page">
-    <!-- HEADER -->
-    <header id="header">
-      <h1>ServiceNow Internal Diagnostics</h1>
-      <div class="subtitle">Quantum Console v3.5 – Polaris UI</div>
-      <div class="badge">INTERNAL USE ONLY</div>
-    </header>
+  <!-- TOP BAR -->
+  <div id="sn-header">ServiceNow Internal Diagnostics</div>
+  <div id="subheader">
+    Quantum Console – Polaris UI 
+    <span class="badge">INTERNAL USE ONLY</span>
+  </div>
 
-    <p class="lead">
-      Accesso ai moduli operativi. Ogni ambiente esegue sequenze di analisi,
-      pre-elaborazione e avvio dedicato.
-    </p>
+  <main class="page">
 
     <!-- MODULO 1 -->
     <section class="module">
-      <h3>Incident Deflection Simulator</h3>
-      <p class="desc">Simulatore per valutazioni dinamiche in ambienti a densità elevata di eventi.</p>
-      <div id="btn-inv" class="btn">Launch Module</div>
+      <h2>Incident Deflection Simulator</h2>
+      <div class="desc">
+        Analisi dinamica in scenari ad alta intensità di eventi con risposta interattiva.
+      </div>
+      <div id="btn-inv" class="btn">Open Module</div>
       <div id="log-inv" class="logs"></div>
     </section>
 
     <!-- MODULO 2 -->
     <section class="module">
-      <h3>Farming Load Analysis Engine</h3>
-      <p class="desc">Ambiente di modellazione verticale per sistemi distribuiti a crescita variabile.</p>
-      <div id="btn-farm" class="btn">Launch Module</div>
+      <h2>Farming Load Analysis Engine</h2>
+      <div class="desc">
+        Valutazione di sistemi distribuiti a crescita variabile e dinamiche di allocazione risorse.
+      </div>
+      <div id="btn-farm" class="btn">Open Module</div>
       <div id="log-farm" class="logs"></div>
     </section>
 
-    <!-- MODULO 3 -->
+    <!-- MODULO 3 – adattato per Helldivers -->
     <section class="module">
-      <h3>Strategic Entity Simulation</h3>
-      <p class="desc">Sistema di osservazione turn-based di unità autonome multi-agente.</p>
-      <div id="btn-ab" class="btn">Launch Module</div>
+      <h2>Remote Operational Telemetry Console</h2>
+      <div class="desc">
+        Aggregatore di telemetria remota per ambienti ad alta intensità operativa
+        con visualizzazioni tattiche avanzate.
+      </div>
+      <div id="btn-ab" class="btn">Open Module</div>
       <div id="log-ab" class="logs"></div>
     </section>
+
   </main>
 
-  <!-- EASTER EGG PANEL -->
+  <!-- EASTER EGG -->
   <div id="easterEggPanel">
-    <div id="easterEggTitle">Quantum Debug Layer – Hidden Interface</div>
-    <div>
-      Accessing undeclared diagnostic matrices...<br>
-      Compiling visualizers...<br>
-      Injecting entropy seeds...<br>
-      <br>
-      <b>ACCESS GRANTED</b><br>
-      Modalità sperimentale attiva.
-    </div>
+    <div><b>Quantum Debug Layer – Hidden Interface</b></div>
+    <br>
+    Accessing delta matrices...<br>
+    Injecting entropy vectors...<br>
+    Calibrating concealed subsystems...<br><br>
+    <b>ACCESS GRANTED</b><br>
+    Experimental mode enabled.
     <div id="easterEggClose">CLOSE</div>
   </div>
 
-  <!-- SCRIPT -->
   <script>
-    /* --- FUNZIONE DI AVVIO MODULO (uguale ai tuoi moduli precedenti) --- */
     function runModule(logArea, url) {
       logArea.innerHTML = "";
       const lines = [
@@ -232,17 +214,13 @@
           logArea.appendChild(p);
           setTimeout(next, 300);
         } else {
-          window.open(
-            url,
-            "_blank",
-            "width=900,height=700,resizable=yes,menubar=no,toolbar=no,location=no,status=no"
-          );
+          window.open(url, "_blank",
+            "width=900,height=700,resizable=yes,menubar=no,toolbar=no,location=no,status=no");
         }
       }
       next();
     }
 
-    /* --- BIND BOTTONI --- */
     document.getElementById("btn-inv").onclick = () =>
       runModule(document.getElementById("log-inv"),
         "https://buckyz.github.io/SpaceInvaders/");
@@ -255,19 +233,14 @@
       runModule(document.getElementById("log-ab"),
         "https://helldiverscompanion.com/");
 
-    /* --- EASTER EGG: attivato col tasto "\" --- */
-    const egg = document.getElementById("easterEggPanel");
-    const close = document.getElementById("easterEggClose");
-
     document.addEventListener("keydown", (e) => {
       if (e.key === "\\") {
-        egg.style.display = "block";
+        document.getElementById("easterEggPanel").style.display = "block";
       }
     });
-
-    close.onclick = () => {
-      egg.style.display = "none";
-    };
+    document.getElementById("easterEggClose").onclick = () =>
+      document.getElementById("easterEggPanel").style.display = "none";
   </script>
+
 </body>
 </html>
