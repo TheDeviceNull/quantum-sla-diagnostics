@@ -3,20 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <title>Incident Invaders – Quantum Diagnostic Console</title>
+
 <style>
     body {
         background: #000;
         color: #0affff;
         font-family: Consolas, monospace;
         padding: 20px;
-        font-size: 15px;
+    }
+    #startBtn {
+        margin-top: 40px;
+        padding: 12px 24px;
+        background: #0affff;
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+        border: none;
+        font-size: 16px;
     }
     .log {
-        margin-bottom: 8px;
+        margin-bottom: 6px;
     }
 </style>
+</head>
+
+<body>
+
+<h2>Incident Invaders – Quantum Diagnostic Console</h2>
+<p>Click to initialize the system.</p>
+
+<button id="startBtn">▶ START DIAGNOSTIC</button>
+
+<div id="logArea"></div>
+
 <script>
-window.onload = function() {
+document.getElementById("startBtn").onclick = function() {
+
     const logs = [
         "Initializing SLA Deflection Engine...",
         "Loading Incident Waveform Analyzer...",
@@ -26,16 +48,18 @@ window.onload = function() {
         "Launching Diagnostic Popup..."
     ];
 
+    const logArea = document.getElementById("logArea");
     let i = 0;
-    function nextLog(){
-        if(i < logs.length){
+
+    function nextLog() {
+        if (i < logs.length) {
             const p = document.createElement("div");
             p.className = "log";
             p.textContent = "[OK] " + logs[i++];
-            document.body.appendChild(p);
-            setTimeout(nextLog, 400);
+            logArea.appendChild(p);
+            setTimeout(nextLog, 350);
         } else {
-            // apre il popup con dimensioni perfette
+            // ORA FUNZIONA: chiamata popup dentro evento di click (consentito)
             window.open(
                 "https://buckyz.github.io/SpaceInvaders/",
                 "invaders",
@@ -43,14 +67,11 @@ window.onload = function() {
             );
         }
     }
+
     nextLog();
 };
 </script>
-</head>
 
-<body>
-<h2>Incident Invaders – Quantum Diagnostic Console</h2>
-<div class="log">Booting console...</div>
 </body>
 </html>
 ``
