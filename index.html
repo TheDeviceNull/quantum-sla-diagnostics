@@ -2,126 +2,157 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>ServiceNow Internal Diagnostics – Quantum Console v2.0</title>
+  <title>ServiceNow Internal Diagnostics – Quantum Console v3.5</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!--
-    DESIGN B: Fake ServiceNow Internal Tool
-    - Look & feel sobrio, “enterprise”
-    - Box per ciascun modulo
-    - Log stile console
-  -->
-
+  <!-- ============================
+       POLARIS THEME (CUSTOM)
+       Ispirato ai design moderni di ServiceNow
+       ============================ -->
   <style>
     :root {
-      --bg: #111;             /* sfondo scuro */
-      --panel: #1a1a1a;       /* pannelli */
-      --panel-border: #2a2a2a;
-      --text: #d7d7d7;        /* testo neutro */
-      --accent: #61dafb;      /* azzurro primario */
-      --accent-2: #9be7ff;    /* azzurro secondario */
-      --ok: #9cffd0;          /* verde acqua per i log [OK] */
-      --btn-text: #000;
-      --radius: 8px;
+      --bg: #f7f9fa;
+      --card-bg: #ffffff;
+      --border: #d7dce0;
+      --text-primary: #1c2a37;
+      --text-secondary: #3b4a5a;
+      --accent: #0078d4;
+      --accent-light: #cfe7ff;
+      --btn-text: #ffffff;
+      --radius: 10px;
+      --shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
 
-    html, body {
+    body {
       background: var(--bg);
-      color: var(--text);
-      font-family: "Segoe UI", Roboto, Tahoma, Arial, sans-serif;
+      color: var(--text-primary);
       margin: 0;
-      padding: 0;
+      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     .page {
-      max-width: 920px;
+      max-width: 980px;
       margin: 0 auto;
-      padding: 28px 22px 40px;
+      padding: 35px 24px 60px;
     }
 
-    /* Header “corporate” */
+    /* HEADER */
     #header {
-      border-left: 5px solid var(--accent);
-      padding-left: 14px;
-      margin-bottom: 28px;
+      margin-bottom: 26px;
+      padding: 10px 0 18px;
+      border-bottom: 2px solid var(--border);
     }
 
     h1 {
-      margin: 0 0 4px 0;
-      color: var(--accent);
+      margin: 0;
+      font-size: 30px;
       font-weight: 600;
-      font-size: 28px;
-      line-height: 1.2;
+      color: var(--text-primary);
     }
 
     .subtitle {
-      color: #b6c6cf;
+      color: var(--text-secondary);
       font-size: 14px;
-      opacity: 0.9;
+      font-weight: 500;
+      margin-top: 4px;
     }
 
-    p.lead {
-      margin: 8px 0 24px 0;
-      color: #cfd8dc;
+    /* BADGE INTERNAL */
+    .badge {
+      display: inline-block;
+      background: #b40000;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin-top: 8px;
     }
 
-    /* Pannelli modulo */
+    /* Moduli / Cards */
     .module {
-      background: var(--panel);
-      border: 1px solid var(--panel-border);
+      background: var(--card-bg);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 18px;
-      margin-bottom: 18px;
+      padding: 20px 22px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow);
     }
 
     .module h3 {
-      margin: 0 0 8px 0;
-      color: var(--accent-2);
+      margin-top: 0;
+      font-size: 20px;
+      color: var(--text-primary);
       font-weight: 600;
     }
 
-    .module p.desc {
-      margin: 0 0 12px 0;
-      color: #c7d1d6;
+    .desc {
+      margin: 0 0 14px;
+      color: var(--text-secondary);
       font-size: 14px;
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
-    /* Pulsanti */
     .btn {
       display: inline-block;
       padding: 10px 16px;
       background: var(--accent);
       color: var(--btn-text);
-      font-weight: 700;
+      font-weight: 600;
       border-radius: 6px;
       cursor: pointer;
       user-select: none;
-      transition: transform 0.05s ease-in-out, filter 0.1s ease;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+      transition: background 0.1s ease;
     }
-    .btn:active { transform: translateY(1px) scale(0.99); }
-    .btn:focus-visible {
-      outline: 2px solid var(--accent-2);
-      outline-offset: 2px;
+    .btn:hover {
+      background: #005fa3;
     }
 
-    /* Area log stile console */
     .logs {
-      margin-top: 12px;
-      font-family: Consolas, "Fira Code", monospace;
-      font-size: 13px;
-      background: #151515;
-      border: 1px dashed #2f2f2f;
+      background: var(--accent-light);
+      color: var(--text-primary);
+      margin-top: 14px;
+      padding: 10px 14px;
       border-radius: 6px;
-      padding: 10px 12px;
       min-height: 52px;
+      font-family: Consolas, monospace;
+      font-size: 13px;
     }
-    .log-line { color: var(--ok); margin: 2px 0; }
-    .log-line::before { content: "› "; opacity: 0.5; }
+    .log-line { margin: 3px 0; }
 
-    /* Piccola responsività */
-    @media (max-width: 520px) {
-      .page { padding: 22px 14px 34px; }
+    /* EASTER EGG POPUP */
+    #easterEggPanel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 420px;
+      transform: translate(-50%, -50%);
+      background: #0d1117;
+      color: #8fffa8;
+      padding: 20px;
+      border-radius: 8px;
+      border: 2px solid #2ea043;
+      box-shadow: 0 0 18px rgba(0,255,128,0.4);
+      display: none;
+      z-index: 99999;
+      font-family: Consolas, monospace;
+    }
+    #easterEggTitle {
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: #9bffcc;
+      font-weight: 600;
+    }
+    #easterEggClose {
+      margin-top: 14px;
+      cursor: pointer;
+      color: #fff;
+      background: #2ea043;
+      padding: 6px 12px;
+      border-radius: 5px;
+      display: inline-block;
+      font-size: 12px;
     }
   </style>
 </head>
@@ -129,100 +160,114 @@
 <body>
   <main class="page">
     <!-- HEADER -->
-    <header id="header" aria-label="Console Header">
+    <header id="header">
       <h1>ServiceNow Internal Diagnostics</h1>
-      <div class="subtitle">Quantum Console v2.0 — Restricted Engineering Tools</div>
+      <div class="subtitle">Quantum Console v3.5 – Polaris UI</div>
+      <div class="badge">INTERNAL USE ONLY</div>
     </header>
 
     <p class="lead">
-      Seleziona un modulo operativo per avviare una simulazione controllata.
-      La finestra del modulo verrà aperta con dimensioni dedicate dopo una breve fase di inizializzazione.
+      Accesso ai moduli operativi. Ogni ambiente esegue sequenze di analisi,
+      pre-elaborazione e avvio dedicato.
     </p>
 
-    <!-- MODULO 1: Space Invaders -->
-    <section class="module" aria-labelledby="mod-invaders">
-      <h3 id="mod-invaders">Incident Deflection Simulator</h3>
-      <p class="desc">
-        Modulo predittivo per visualizzare comportamenti ad alta densità di incident P1 tramite simulazione interattiva.
-      </p>
-
-      <button id="btn-invaders" class="btn" type="button" aria-controls="logs-invaders">
-        Launch Module
-      </button>
-
-      <div id="logs-invaders" class="logs" role="log" aria-live="polite" aria-label="Initialization logs"></div>
+    <!-- MODULO 1 -->
+    <section class="module">
+      <h3>Incident Deflection Simulator</h3>
+      <p class="desc">Simulatore per valutazioni dinamiche in ambienti a densità elevata di eventi.</p>
+      <div id="btn-inv" class="btn">Launch Module</div>
+      <div id="log-inv" class="logs"></div>
     </section>
 
-    <!-- MODULO 2: Farmhand -->
-    <section class="module" aria-labelledby="mod-farmhand">
-      <h3 id="mod-farmhand">Farming Load Analysis Environment</h3>
-      <p class="desc">
-        Strumento di osservazione del comportamento delle risorse distribuite in contesti agricoli virtualizzati.
-      </p>
+    <!-- MODULO 2 -->
+    <section class="module">
+      <h3>Farming Load Analysis Engine</h3>
+      <p class="desc">Ambiente di modellazione verticale per sistemi distribuiti a crescita variabile.</p>
+      <div id="btn-farm" class="btn">Launch Module</div>
+      <div id="log-farm" class="logs"></div>
+    </section>
 
-      <button id="btn-farmhand" class="btn" type="button" aria-controls="logs-farmhand">
-        Launch Module
-      </button>
-
-      <div id="logs-farmhand" class="logs" role="log" aria-live="polite" aria-label="Initialization logs"></div>
+    <!-- MODULO 3 -->
+    <section class="module">
+      <h3>Strategic Entity Simulation</h3>
+      <p class="desc">Sistema di osservazione turn-based di unità autonome multi-agente.</p>
+      <div id="btn-ab" class="btn">Launch Module</div>
+      <div id="log-ab" class="logs"></div>
     </section>
   </main>
 
+  <!-- EASTER EGG PANEL -->
+  <div id="easterEggPanel">
+    <div id="easterEggTitle">Quantum Debug Layer – Hidden Interface</div>
+    <div>
+      Accessing undeclared diagnostic matrices...<br>
+      Compiling visualizers...<br>
+      Injecting entropy seeds...<br>
+      <br>
+      <b>ACCESS GRANTED</b><br>
+      Modalità sperimentale attiva.
+    </div>
+    <div id="easterEggClose">CLOSE</div>
+  </div>
+
+  <!-- SCRIPT -->
   <script>
-    /**
-     * runModule:
-     * - stampa log “tecnici” con una piccola pausa
-     * - alla fine apre una finestra 900x700 senza toolbar/menubar (dove supportato)
-     * - questa funzione è chiamata SOLO a seguito di un click utente,
-     *   quindi il popup è consentito dai browser moderni.
-     */
-    function runModule(logContainer, targetUrl) {
-      // reset area log
-      logContainer.innerHTML = "";
-
-      // sequenza log stile tool interno
+    /* --- FUNZIONE DI AVVIO MODULO (uguale ai tuoi moduli precedenti) --- */
+    function runModule(logArea, url) {
+      logArea.innerHTML = "";
       const lines = [
-        "Verifying authentication token...",
-        "Locking execution thread...",
-        "Loading diagnostic routines...",
-        "Checking cluster runtime...",
-        "Pre-loading simulation assets...",
-        "Launching module window..."
+        "Initializing secure context...",
+        "Validating runtime dependencies...",
+        "Loading operational packages...",
+        "Preparing sandbox environment...",
+        "Engaging rendering layer...",
+        "Opening dedicated module window..."
       ];
-
       let i = 0;
-      const tick = () => {
+      function next() {
         if (i < lines.length) {
           const p = document.createElement("div");
           p.className = "log-line";
           p.textContent = "[OK] " + lines[i++];
-          logContainer.appendChild(p);
-          setTimeout(tick, 320); // tempo tra i log (in ms)
+          logArea.appendChild(p);
+          setTimeout(next, 300);
         } else {
-          // Apertura finestra “app-like”.
-          // NOTA: i browser possono ignorare alcuni flag (es. location=no) per policy,
-          // ma in genere rispettano dimensioni e resizable.
           window.open(
-            targetUrl,
+            url,
             "_blank",
             "width=900,height=700,resizable=yes,menubar=no,toolbar=no,location=no,status=no"
           );
         }
-      };
-      tick();
+      }
+      next();
     }
 
-    // Binding pulsante → modulo Invaders (HTML5)
-    document.getElementById("btn-invaders").addEventListener("click", function () {
-      const logs = document.getElementById("logs-invaders");
-      runModule(logs, "https://buckyz.github.io/SpaceInvaders/");
+    /* --- BIND BOTTONI --- */
+    document.getElementById("btn-inv").onclick = () =>
+      runModule(document.getElementById("log-inv"),
+        "https://buckyz.github.io/SpaceInvaders/");
+
+    document.getElementById("btn-farm").onclick = () =>
+      runModule(document.getElementById("log-farm"),
+        "https://jeremyckahn.github.io/farmhand/");
+
+    document.getElementById("btn-ab").onclick = () =>
+      runModule(document.getElementById("log-ab"),
+        "https://freezingmoon.github.io/AncientBeast/");
+
+    /* --- EASTER EGG: attivato col tasto "\" --- */
+    const egg = document.getElementById("easterEggPanel");
+    const close = document.getElementById("easterEggClose");
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "\\") {
+        egg.style.display = "block";
+      }
     });
 
-    // Binding pulsante → modulo Farmhand (HTML5 / PWA)
-    document.getElementById("btn-farmhand").addEventListener("click", function () {
-      const logs = document.getElementById("logs-farmhand");
-      runModule(logs, "https://jeremyckahn.github.io/farmhand/");
-    });
+    close.onclick = () => {
+      egg.style.display = "none";
+    };
   </script>
 </body>
 </html>
