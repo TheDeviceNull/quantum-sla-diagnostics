@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Incident Invaders – Quantum Diagnostic Console</title>
+<style>
+    body {
+        background: #000;
+        color: #0affff;
+        font-family: Consolas, monospace;
+        padding: 20px;
+        font-size: 15px;
+    }
+    .log {
+        margin-bottom: 8px;
+    }
+</style>
+<script>
+window.onload = function() {
+    const logs = [
+        "Initializing SLA Deflection Engine...",
+        "Loading Incident Waveform Analyzer...",
+        "Establishing Quantum CAB Link...",
+        "Calibrating Level-4 Shields...",
+        "Deploying Incident Invaders Simulation...",
+        "Launching Diagnostic Popup..."
+    ];
+
+    let i = 0;
+    function nextLog(){
+        if(i < logs.length){
+            const p = document.createElement("div");
+            p.className = "log";
+            p.textContent = "[OK] " + logs[i++];
+            document.body.appendChild(p);
+            setTimeout(nextLog, 400);
+        } else {
+            // apre il popup con dimensioni perfette
+            window.open(
+                "https://buckyz.github.io/SpaceInvaders/",
+                "invaders",
+                "width=900,height=700,menubar=no,toolbar=no,location=no,status=no,resizable=yes"
+            );
+        }
+    }
+    nextLog();
+};
+</script>
+</head>
+
+<body>
+<h2>Incident Invaders – Quantum Diagnostic Console</h2>
+<div class="log">Booting console...</div>
+</body>
+</html>
+``
