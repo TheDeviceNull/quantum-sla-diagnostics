@@ -1,77 +1,158 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Incident Invaders – Quantum Diagnostic Console</title>
+  <meta charset="UTF-8" />
+  <title>ServiceNow Internal Diagnostics – Quantum Console v2.0</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<style>
-    body {
-        background: #000;
-        color: #0affff;
-        font-family: Consolas, monospace;
-        padding: 20px;
+  <!--
+    DESIGN B: Fake ServiceNow Internal Tool
+    - Look & feel sobrio, “enterprise”
+    - Box per ciascun modulo
+    - Log stile console
+  -->
+
+  <style>
+    :root {
+      --bg: #111;             /* sfondo scuro */
+      --panel: #1a1a1a;       /* pannelli */
+      --panel-border: #2a2a2a;
+      --text: #d7d7d7;        /* testo neutro */
+      --accent: #61dafb;      /* azzurro primario */
+      --accent-2: #9be7ff;    /* azzurro secondario */
+      --ok: #9cffd0;          /* verde acqua per i log [OK] */
+      --btn-text: #000;
+      --radius: 8px;
     }
-    #startBtn {
-        margin-top: 40px;
-        padding: 12px 24px;
-        background: #0affff;
-        color: #000;
-        font-weight: bold;
-        cursor: pointer;
-        border: none;
-        font-size: 16px;
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", Roboto, Tahoma, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
     }
-    .log {
-        margin-bottom: 6px;
+
+    .page {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 28px 22px 40px;
     }
-</style>
+
+    /* Header “corporate” */
+    #header {
+      border-left: 5px solid var(--accent);
+      padding-left: 14px;
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      margin: 0 0 4px 0;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 28px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      color: #b6c6cf;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    p.lead {
+      margin: 8px 0 24px 0;
+      color: #cfd8dc;
+    }
+
+    /* Pannelli modulo */
+    .module {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+
+    .module h3 {
+      margin: 0 0 8px 0;
+      color: var(--accent-2);
+      font-weight: 600;
+    }
+
+    .module p.desc {
+      margin: 0 0 12px 0;
+      color: #c7d1d6;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Pulsanti */
+    .btn {
+      display: inline-block;
+      padding: 10px 16px;
+      background: var(--accent);
+      color: var(--btn-text);
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.05s ease-in-out, filter 0.1s ease;
+    }
+    .btn:active { transform: translateY(1px) scale(0.99); }
+    .btn:focus-visible {
+      outline: 2px solid var(--accent-2);
+      outline-offset: 2px;
+    }
+
+    /* Area log stile console */
+    .logs {
+      margin-top: 12px;
+      font-family: Consolas, "Fira Code", monospace;
+      font-size: 13px;
+      background: #151515;
+      border: 1px dashed #2f2f2f;
+      border-radius: 6px;
+      padding: 10px 12px;
+      min-height: 52px;
+    }
+    .log-line { color: var(--ok); margin: 2px 0; }
+    .log-line::before { content: "› "; opacity: 0.5; }
+
+    /* Piccola responsività */
+    @media (max-width: 520px) {
+      .page { padding: 22px 14px 34px; }
+    }
+  </style>
 </head>
 
 <body>
+  <main class="page">
+    <!-- HEADER -->
+    <header id="header" aria-label="Console Header">
+      <h1>ServiceNow Internal Diagnostics</h1>
+      <div class="subtitle">Quantum Console v2.0 — Restricted Engineering Tools</div>
+    </header>
 
-<h2>Incident Invaders – Quantum Diagnostic Console</h2>
-<p>Click to initialize the system.</p>
+    <p class="lead">
+      Seleziona un modulo operativo per avviare una simulazione controllata.
+      La finestra del modulo verrà aperta con dimensioni dedicate dopo una breve fase di inizializzazione.
+    </p>
 
-<button id="startBtn">▶ START DIAGNOSTIC</button>
+    <!-- MODULO 1: Space Invaders -->
+    <section class="module" aria-labelledby="mod-invaders">
+      <h3 id="mod-invaders">Incident Deflection Simulator</h3>
+      <p class="desc">
+        Modulo predittivo per visualizzare comportamenti ad alta densità di incident P1 tramite
+        simulazione interattiva (Space Invaders – HTML5).
+      </p>
 
-<div id="logArea"></div>
+      <button id="btn-invaders" class="btn" type="button" aria-controls="logs-invaders">
+        Launch Module
+      </button>
 
-<script>
-document.getElementById("startBtn").onclick = function() {
+      <div id="logs-invaders" class="logs" role="log" aria-live="polite" aria-label="Initialization logs"></div>
+    </section>
 
-    const logs = [
-        "Initializing SLA Deflection Engine...",
-        "Loading Incident Waveform Analyzer...",
-        "Establishing Quantum CAB Link...",
-        "Calibrating Level-4 Shields...",
-        "Deploying Incident Invaders Simulation...",
-        "Launching Diagnostic Popup..."
-    ];
-
-    const logArea = document.getElementById("logArea");
-    let i = 0;
-
-    function nextLog() {
-        if (i < logs.length) {
-            const p = document.createElement("div");
-            p.className = "log";
-            p.textContent = "[OK] " + logs[i++];
-            logArea.appendChild(p);
-            setTimeout(nextLog, 350);
-        } else {
-            // ORA FUNZIONA: chiamata popup dentro evento di click (consentito)
-            window.open(
-                "https://buckyz.github.io/SpaceInvaders/",
-                "invaders",
-                "width=900,height=700,menubar=no,toolbar=no,location=no,status=no,resizable=yes"
-            );
-        }
-    }
-
-    nextLog();
-};
-</script>
-
-</body>
-</html>
-``
+    <!-- MODULO 2: Farmhand -->
+    <section class="module" aria-labelledby="mod-farmhand">
