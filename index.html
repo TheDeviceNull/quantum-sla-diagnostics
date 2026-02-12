@@ -156,3 +156,75 @@
 
     <!-- MODULO 2: Farmhand -->
     <section class="module" aria-labelledby="mod-farmhand">
+      <h3 id="mod-farmhand">Farming Load Analysis Environment</h3>
+      <p class="desc">
+        Strumento di osservazione del comportamento delle risorse distribuite in contesti agricoli virtualizzati
+        (Farmhand – resource management / PWA, supporto multiplayer).
+      </p>
+
+      <button id="btn-farmhand" class="btn" type="button" aria-controls="logs-farmhand">
+        Launch Module
+      </button>
+
+      <div id="logs-farmhand" class="logs" role="log" aria-live="polite" aria-label="Initialization logs"></div>
+    </section>
+  </main>
+
+  <script>
+    /**
+     * runModule:
+     * - stampa log “tecnici” con una piccola pausa
+     * - alla fine apre una finestra 900x700 senza toolbar/menubar (dove supportato)
+     * - questa funzione è chiamata SOLO a seguito di un click utente,
+     *   quindi il popup è consentito dai browser moderni.
+     */
+    function runModule(logContainer, targetUrl) {
+      // reset area log
+      logContainer.innerHTML = "";
+
+      // sequenza log stile tool interno
+      const lines = [
+        "Verifying authentication token...",
+        "Locking execution thread...",
+        "Loading diagnostic routines...",
+        "Checking cluster runtime...",
+        "Pre-loading simulation assets...",
+        "Launching module window..."
+      ];
+
+      let i = 0;
+      const tick = () => {
+        if (i < lines.length) {
+          const p = document.createElement("div");
+          p.className = "log-line";
+          p.textContent = "[OK] " + lines[i++];
+          logContainer.appendChild(p);
+          setTimeout(tick, 320); // tempo tra i log (in ms)
+        } else {
+          // Apertura finestra “app-like”.
+          // NOTA: i browser possono ignorare alcuni flag (es. location=no) per policy,
+          // ma in genere rispettano dimensioni e resizable.
+          window.open(
+            targetUrl,
+            "_blank",
+            "width=900,height=700,resizable=yes,menubar=no,toolbar=no,location=no,status=no"
+          );
+        }
+      };
+      tick();
+    }
+
+    // Binding pulsante → modulo Invaders (HTML5)
+    document.getElementById("btn-invaders").addEventListener("click", function () {
+      const logs = document.getElementById("logs-invaders");
+      runModule(logs, "https://buckyz.github.io/SpaceInvaders/");
+    });
+
+    // Binding pulsante → modulo Farmhand (HTML5 / PWA)
+    document.getElementById("btn-farmhand").addEventListener("click", function () {
+      const logs = document.getElementById("logs-farmhand");
+      runModule(logs, "https://jeremyckahn.github.io/farmhand/");
+    });
+  </script>
+</body>
+</html>
