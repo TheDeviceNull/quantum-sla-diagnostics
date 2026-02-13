@@ -1,0 +1,152 @@
+:root {
+  /* Palette Polaris-like */
+  --sn-header-bg: #1e1f21;     /* top bar scura */
+  --sn-header-text: #ffffff;
+  --sn-border: #d0d4d9;        /* bordi chiari */
+  --sn-text: #1c1e21;          /* testo principale */
+  --sn-subtext: #4a4f55;       /* testo secondario */
+  --sn-link: #0b57d0;          /* link/primary */
+  --sn-bg: #ffffff;            /* fondo pagina */
+
+  --radius: 4px;
+  --font: "Segoe UI", Arial, sans-serif;
+}
+
+/* Base */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--sn-bg);
+  color: var(--sn-text);
+  font-family: var(--font);
+}
+
+/* Header stile ServiceNow */
+#sn-header {
+  background: var(--sn-header-bg);
+  color: var(--sn-header-text);
+  padding: 12px 20px;
+  border-bottom: 1px solid #000;
+}
+.sn-header-inner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.sn-logo {
+  height: 24px;
+  width: auto;
+  display: block;
+}
+.sn-title {
+  font-size: 16px;
+  font-weight: 500;
+  opacity: 0.95;
+  letter-spacing: 0.2px;
+  padding-top: 2px;
+}
+
+/* Subheader chiaro */
+#subheader {
+  background: #f3f4f6;
+  padding: 10px 22px;
+  border-bottom: 1px solid var(--sn-border);
+  font-size: 14px;
+  color: var(--sn-subtext);
+}
+
+/* Contenuto pagina */
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 25px 22px 70px;
+}
+
+/* Badge "Internal" */
+.badge {
+  display: inline-block;
+  background: #b40000;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 6px;
+  border-radius: var(--radius);
+  margin-left: 8px;
+}
+
+/* Moduli (minimal, Polaris-like) */
+.module {
+  border-left: 3px solid var(--sn-link);
+  padding: 10px 14px 14px;
+  margin-bottom: 26px;
+  background: #fafafa;
+  border-radius: var(--radius);
+  border: 1px solid #e7eaed;
+}
+.module h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+}
+.desc {
+  font-size: 13px;
+  color: var(--sn-subtext);
+  margin-bottom: 14px;
+}
+
+/* Pulsanti */
+.btn {
+  display: inline-block;
+  background: var(--sn-link);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+}
+.btn:hover { background: #094bbc; }
+
+/* Pulsante “ghost” (per l’easter egg) */
+.btn-ghost {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #2ea043;
+  border-radius: var(--radius);
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.btn-ghost:hover { background: rgba(46,160,67,0.15); }
+
+/* Log area */
+.logs {
+  font-family: Consolas, monospace;
+  background: #eef4ff;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  border: 1px solid #d9e4ff;
+  margin-top: 10px;
+  font-size: 12px;
+  min-height: 40px;
+}
+.log-line { margin: 2px 0; }
+
+/* Easter Egg Panel */
+#easterEggPanel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 380px;
+  transform: translate(-50%, -50%);
+  background: #0d1117;
+  color: #8fffa8;
+  padding: 18px;
+  border-radius: 6px;
+  border: 2px solid #2ea043;
+  display: none;
+  z-index: 99999;
+  font-family: Consolas, monospace;
+  font-size: 12px;
+}
