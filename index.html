@@ -1,200 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>ServiceNow Internal Diagnostics – Quantum Console</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <style>
-    :root {
-      --sn-header-bg: #1e1f21;
-      --sn-header-text: #ffffff;
-      --sn-border: #d0d4d9;
-      --sn-text: #1c1e21;
-      --sn-subtext: #4a4f55;
-      --sn-link: #0b57d0;
-      --sn-bg: #ffffff;
-      --radius: 4px;
-      --font: "Segoe UI", Arial, sans-serif;
-    }
-
-    body {
-      background: var(--sn-bg);
-      color: var(--sn-text);
-      margin: 0;
-      font-family: var(--font);
-    }
-
-    /* HEADER STILE SERVICENOW */
-    #sn-header {
-      background: var(--sn-header-bg);
-      color: var(--sn-header-text);
-      padding: 14px 22px;
-      font-size: 18px;
-      font-weight: 500;
-    }
-
-    /* SUBHEADER */
-    #subheader {
-      background: #f3f4f6;
-      padding: 10px 22px;
-      border-bottom: 1px solid var(--sn-border);
-      color: var(--sn-subtext);
-      font-size: 14px;
-    }
-
-    /* PAGE AREA */
-    .page {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 25px 22px 70px;
-    }
-
-    .badge {
-      display: inline-block;
-      background: #b40000;
-      color: #fff;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 3px 6px;
-      border-radius: var(--radius);
-      margin-left: 8px;
-    }
-
-    h2 {
-      font-size: 20px;
-      font-weight: 600;
-      margin: 0 0 6px 0;
-    }
-
-    .desc {
-      font-size: 13px;
-      color: var(--sn-subtext);
-      margin-bottom: 14px;
-    }
-
-    .module {
-      border-left: 3px solid var(--sn-link);
-      padding: 10px 14px 14px;
-      margin-bottom: 26px;
-      background: #fafafa;
-      border-radius: var(--radius);
-      border: 1px solid #e7eaed;
-    }
-
-    .btn {
-      display: inline-block;
-      background: var(--sn-link);
-      color: #fff;
-      padding: 6px 12px;
-      border-radius: var(--radius);
-      font-size: 13px;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .btn:hover { background: #094bbc; }
-
-    .logs {
-      font-family: Consolas, monospace;
-      background: #eef4ff;
-      padding: 8px 12px;
-      border-radius: var(--radius);
-      border: 1px solid #d9e4ff;
-      margin-top: 10px;
-      font-size: 12px;
-      min-height: 40px;
-    }
-
-    .log-line {
-      margin: 2px 0;
-    }
-
-    /* EASTER EGG */
-    #easterEggPanel {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 380px;
-      transform: translate(-50%, -50%);
-      background: #0d1117;
-      color: #8fffa8;
-      padding: 18px;
-      border-radius: 6px;
-      border: 2px solid #2ea043;
-      display: none;
-      z-index: 99999;
-      font-family: Consolas, monospace;
-      font-size: 12px;
-    }
-    #easterEggClose {
-      margin-top: 12px;
-      cursor: pointer;
-      background: #2ea043;
-      color: #fff;
-      padding: 5px 10px;
-      border-radius: var(--radius);
-      display: inline-block;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preload" href="images/now-next-experience-logo.svg" as="image" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <!-- TOP BAR -->
-  <div id="sn-header">ServiceNow Internal Diagnostics</div>
+  <!-- TOP BAR stile ServiceNow Polaris -->
+  <div id="sn-header" role="banner" aria-label="ServiceNow Header">
+    <div class="sn-header-inner">
+      <img
+        src="images/now-next-experience-logo.svg"
+        alt="ServiceNow"
+        class="sn-logo"
+        height="24"
+        width="auto"
+        decoding="async"
+      />
+      <span class="sn-title">Internal Diagnostics</span>
+    </div>
+  </div>
+
+  <!-- SUBHEADER chiaro -->
   <div id="subheader">
-    Quantum Console – Polaris UI 
+    Quantum Console – Polaris UI
     <span class="badge">INTERNAL USE ONLY</span>
   </div>
 
   <main class="page">
-
     <!-- MODULO 1 -->
-    <section class="module">
-      <h2>Incident Deflection Simulator</h2>
-      <div class="desc">
+    <section class="module" aria-labelledby="mod1">
+      <h2 id="mod1">Incident Deflection Simulator</h2>
+      <p class="desc">
         Analisi dinamica in scenari ad alta intensità di eventi con risposta interattiva.
-      </div>
-      <div id="btn-inv" class="btn">Open Module</div>
-      <div id="log-inv" class="logs"></div>
+      </p>
+      <button id="btn-inv" class="btn" type="button" aria-controls="log-inv">Open Module</button>
+      <div id="log-inv" class="logs" role="log" aria-live="polite"></div>
     </section>
 
     <!-- MODULO 2 -->
-    <section class="module">
-      <h2>Farming Load Analysis Engine</h2>
-      <div class="desc">
+    <section class="module" aria-labelledby="mod2">
+      <h2 id="mod2">Farming Load Analysis Engine</h2>
+      <p class="desc">
         Valutazione di sistemi distribuiti a crescita variabile e dinamiche di allocazione risorse.
-      </div>
-      <div id="btn-farm" class="btn">Open Module</div>
-      <div id="log-farm" class="logs"></div>
+      </p>
+      <button id="btn-farm" class="btn" type="button" aria-controls="log-farm">Open Module</button>
+      <div id="log-farm" class="logs" role="log" aria-live="polite"></div>
     </section>
 
-    <!-- MODULO 3 – adattato per Helldivers -->
-    <section class="module">
-      <h2>Remote Operational Telemetry Console</h2>
-      <div class="desc">
-        Aggregatore di telemetria remota per ambienti ad alta intensità operativa
-        con visualizzazioni tattiche avanzate.
-      </div>
-      <div id="btn-ab" class="btn">Open Module</div>
-      <div id="log-ab" class="logs"></div>
+    <!-- MODULO 3 (Helldivers, descrizione adattata) -->
+    <section class="module" aria-labelledby="mod3">
+      <h2 id="mod3">Remote Operational Telemetry Console</h2>
+      <p class="desc">
+        Aggregatore di telemetria remota per ambienti ad alta intensità operativa con visualizzazioni tattiche.
+      </p>
+      <button id="btn-ab" class="btn" type="button" aria-controls="log-ab">Open Module</button>
+      <div id="log-ab" class="logs" role="log" aria-live="polite"></div>
     </section>
-
   </main>
 
-  <!-- EASTER EGG -->
-  <div id="easterEggPanel">
-    <div><b>Quantum Debug Layer – Hidden Interface</b></div>
-    <br>
-    Accessing delta matrices...<br>
-    Injecting entropy vectors...<br>
-    Calibrating concealed subsystems...<br><br>
-    <b>ACCESS GRANTED</b><br>
-    Experimental mode enabled.
-    <div id="easterEggClose">CLOSE</div>
+  <!-- EASTER EGG PANEL (tasto "\") -->
+  <div id="easterEggPanel" role="dialog" aria-modal="true" aria-labelledby="egg-title">
+    <div id="egg-title"><b>Quantum Debug Layer – Hidden Interface</b></div>
+    <div class="egg-body">
+      Accessing delta matrices...<br>
+      Injecting entropy vectors...<br>
+      Calibrating concealed subsystems...<br><br>
+      <b>ACCESS GRANTED</b><br>
+      Experimental mode enabled.
+    </div>
+    <button id="easterEggClose" class="btn-ghost" type="button">CLOSE</button>
   </div>
 
   <script>
+    // Funzione comune per i moduli: log + apertura finestra dedicata
     function runModule(logArea, url) {
       logArea.innerHTML = "";
       const lines = [
@@ -206,7 +88,7 @@
         "Opening dedicated module window..."
       ];
       let i = 0;
-      function next() {
+      (function next() {
         if (i < lines.length) {
           const p = document.createElement("div");
           p.className = "log-line";
@@ -214,33 +96,40 @@
           logArea.appendChild(p);
           setTimeout(next, 300);
         } else {
-          window.open(url, "_blank",
-            "width=900,height=700,resizable=yes,menubar=no,toolbar=no,location=no,status=no");
+          window.open(
+            url,
+            "_blank",
+            "width=900,height=700,resizable=yes,menubar=no,toolbar=no,location=no,status=no"
+          );
         }
-      }
-      next();
+      })();
     }
 
-    document.getElementById("btn-inv").onclick = () =>
-      runModule(document.getElementById("log-inv"),
-        "https://buckyz.github.io/SpaceInvaders/");
+    // Bind pulsanti → URL moduli
+    document.getElementById("btn-inv").addEventListener("click", () =>
+      runModule(document.getElementById("log-inv"), "https://buckyz.github.io/SpaceInvaders/")
+    );
 
-    document.getElementById("btn-farm").onclick = () =>
-      runModule(document.getElementById("log-farm"),
-        "https://jeremyckahn.github.io/farmhand/");
+    document.getElementById("btn-farm").addEventListener("click", () =>
+      runModule(document.getElementById("log-farm"), "https://jeremyckahn.github.io/farmhand/")
+    );
 
-    document.getElementById("btn-ab").onclick = () =>
-      runModule(document.getElementById("log-ab"),
-        "https://helldiverscompanion.com/");
+    document.getElementById("btn-ab").addEventListener("click", () =>
+      runModule(document.getElementById("log-ab"), "https://helldiverscompanion.com/")
+    );
+
+    // Easter egg: tasto "\" apre pannello
+    const egg = document.getElementById("easterEggPanel");
+    const eggClose = document.getElementById("easterEggClose");
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "\\") {
-        document.getElementById("easterEggPanel").style.display = "block";
+        egg.style.display = "block";
       }
     });
-    document.getElementById("easterEggClose").onclick = () =>
-      document.getElementById("easterEggPanel").style.display = "none";
+    eggClose.addEventListener("click", () => {
+      egg.style.display = "none";
+    });
   </script>
-
 </body>
 </html>
